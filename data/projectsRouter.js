@@ -7,7 +7,6 @@ router.get('/', async (req, res) => {
         const projects = await Projects.get();
         res.status(200).json(projects);
     } catch(err) {
-        console.log(err);
         res.status(500).json({ error: 'The project requested could not be retrieved' })
     }
 })
