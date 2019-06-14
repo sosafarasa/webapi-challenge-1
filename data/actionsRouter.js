@@ -33,5 +33,21 @@ router.post('/', async (req, res) => {
     }
 })
 
+router.put('/:id', async (req, res) => {
+    try{
+        const action = await Actions.get(req.params.id);
+        if(!action){
+            res.status(404).json({ message: 'Action was not found' })
+        }else {
+            await Actions.update(re.params.id, req.body)
+            res.json({ message: 'Updated succesfully!' })
+        }
+    } catch(err){
+        res.status(500).json({ message: 'Server error' })
+
+    }
+});
+
+
 
 module.exports = router;
