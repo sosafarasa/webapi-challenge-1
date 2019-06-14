@@ -48,11 +48,16 @@ router.put('/:id', async (req, res) => {
     }
 });
 
-router.put('/:id', async (req, res) => {
+router.delete('/:id', async (req, res) => {
     try{
-
+        const count = await Projects.remove(req.params.id);
+        if(count > 0) {
+            res.status(204).end();
+        } else {
+            res.status(404).json({ message : 'The project requested does not exist.' })
+        }
     } catch(err){
-        
+        res.status(500).json({ message: 'Failed to delete.' })
     }
 });
 

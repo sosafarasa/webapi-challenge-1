@@ -38,13 +38,26 @@ router.put('/:id', async (req, res) => {
         const action = await Actions.get(req.params.id);
         if(!action){
             res.status(404).json({ message: 'Action was not found' })
-        }else {
+        } else {
             await Actions.update(re.params.id, req.body)
             res.json({ message: 'Updated succesfully!' })
         }
     } catch(err){
         res.status(500).json({ message: 'Server error' })
 
+    }
+});
+
+router.delete('/:id', async (req, res) => {
+    try{
+        const count = await Actions.remove(req.params.id);
+        if(count > 0) {
+            res.status(204).end();
+        } else {
+            res.status(404).json({ message : 'The action requested does not exist.' })
+        }
+    } catch(err){
+        res.status(500).json({ message: 'Failed to delete.' })
     }
 });
 
